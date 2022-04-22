@@ -8,12 +8,12 @@ Feature: Accounts
 
   Scenario: Add account
     Given I am on the Add Account Page
-    When I add account with the name "Test"
+    When I add account with the name Test
     Then the account added message is displayed
 
   Scenario: Add Account already added
     Given I am on the Add Account Page
-    When I add account with the name "Test"
+    When I add account with the name Test
     Then the message of account already added is displayed
 
   Scenario: List the Added Account
@@ -22,11 +22,11 @@ Feature: Accounts
 
   Scenario: Edit the Added Account
     Given I am on the List Account Page
-    When Edit account "Test"
-    Then the account name is changed to "TestEdit"
+    When Edit account Test
+    Then the account name is changed to TestEdit
     And the account edited message is displayed
 
   Scenario: Remove an added Account
     Given I am on the List Account Page
-    When I remove an account
+    When I remove TestEdit account
     Then the remove account message is displayed

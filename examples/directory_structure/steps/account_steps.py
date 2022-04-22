@@ -33,10 +33,10 @@ def add_account_page(context):
     context.driver.find_element(by=By.LINK_TEXT, value="Adicionar").click()
     assert True, context.driver.find_element(by=By.ID, value="nome")
 
-@when('I add account with the name "Test"')
-def add_account(context):
+@when('I add account with the name {accountName}')
+def add_account(context, accountName):
     nome = context.driver.find_element(by=By.ID, value="nome")
-    nome.send_keys("Test")
+    nome.send_keys(accountName)
     context.driver.find_element(by=By.TAG_NAME, value="button").click()
 
 @then('the account added message is displayed')
@@ -62,12 +62,12 @@ def account_list(context):
         "//td[normalize-space()='Test']").text
     assert listedAccount == "Test"
 
-@when('Edit account "Test"')
-def edit_account(context):
+@when('Edit account {accountName}')
+def edit_account(context, accountName):
     X = 1
 
     while (context.driver.find_element_by_xpath(
-            "/html[1]/body[1]/table[1]/tbody[1]/tr["+ str(X) +"]/td[1]").text) != "Test":
+            "/html[1]/body[1]/table[1]/tbody[1]/tr["+ str(X) +"]/td[1]").text) != accountName:
         X = X + 1
     context.driver.find_element_by_xpath(
         "/html[1]/body[1]/table[1]/tbody[1]/tr[" + str(X) + "]/td[2]/a[1]/span[1]").click()
@@ -76,22 +76,22 @@ def edit_account(context):
     context.driver.find_element(by=By.TAG_NAME, value="button").click()
 
 
-@then('the account name is changed to "TestEdit"')
-def edited_account(context):
+@then('the account name is changed to {newAccountName}')
+def edited_account(context, newAccountName):
     listedAccount = context.driver.find_element_by_xpath(
         "//td[normalize-space()='TestEdit']").text
-    assert listedAccount == "TestEdit"
+    assert listedAccount == newAccountName
 
 @then('the account edited message is displayed')
 def edited_account_message(context):
     editedAccountMsg = context.driver.find_element_by_xpath(ALERT_MSG).text
     assert editedAccountMsg == "Conta alterada com sucesso!"
 
-@when('I remove an account')
-def remove_account(context):
+@when('I remove {newAccountName} account')
+def remove_account(context, newAccountName):
     X = 1
     while (context.driver.find_element_by_xpath(
-            "/html[1]/body[1]/table[1]/tbody[1]/tr[" + str(X) + "]/td[1]").text) != "TestEdit":
+            "/html[1]/body[1]/table[1]/tbody[1]/tr[" + str(X) + "]/td[1]").text) != newAccountName:
         X = X + 1
     context.driver.find_element_by_xpath(
         "/html[1]/body[1]/table[1]/tbody[1]/tr[" + str(X) + "]/td[2]/a[2]/span[1]").click()
